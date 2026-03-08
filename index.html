@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finding Worth</title>
+  <meta name="description" content="Finding Worth is a guided CBT and ACT reflection app for working through difficult thoughts and emotions with clarity, self-compassion, and action." />
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --card: rgba(255,255,255,0.78);
+      --text: #1f2937;
+      --muted: #5b6472;
+      --accent: #7c8f7a;
+      --accent-dark: #5f735d;
+      --border: rgba(31, 41, 55, 0.08);
+      --shadow: 0 20px 50px rgba(31, 41, 55, 0.08);
+      --radius: 24px;
+      --maxw: 960px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,143,122,0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(191,167,127,0.14), transparent 28%),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--maxw));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0 10px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .button.primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .button.secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.65);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 52px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(124,143,122,0.12);
+      color: var(--accent-dark);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin: 0 0 18px;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 60ch;
+      margin: 0 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .mini-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .phone-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      max-width: 360px;
+      margin-left: auto;
+    }
+
+    .phone {
+      background: linear-gradient(180deg, #fcfbf8, #f4efe7);
+      border-radius: 28px;
+      padding: 18px;
+      border: 1px solid rgba(31,41,55,0.08);
+    }
+
+    .screen-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .mood-card, .thought-card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(31,41,55,0.06);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .mood-card h3, .thought-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(124,143,122,0.12);
+      color: var(--accent-dark);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    section {
+      padding: 26px 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 0 10px;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      max-width: 70ch;
+      margin: 0 0 22px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .cta {
+      margin: 18px 0 54px;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, rgba(124,143,122,0.15), rgba(255,255,255,0.9));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      padding: 0 0 34px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-line {
+      border-top: 1px solid rgba(31,41,55,0.08);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .phone-card {
+        margin: 0;
+        max-width: 100%;
+      }
+
+      .cta-box {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">Finding Worth</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#support">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">CBT + ACT guided reflection</div>
+          <h1>Find clarity in difficult thoughts.</h1>
+          <p class="lead">
+            Finding Worth is a calm, private app for working through emotions, cognitive distortions, and hard moments with more awareness, self-compassion, and action.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="mailto:your@email.com">Contact Support</a>
+            <a class="button secondary" href="#features">See Features</a>
+          </div>
+          <p class="mini-note">
+            Designed as a self-reflection and wellness tool. It is not a substitute for therapy, diagnosis, crisis care, or medical treatment.
+          </p>
+        </div>
+
+        <div class="phone-card" aria-hidden="true">
+          <div class="phone">
+            <div class="screen-top">
+              <span>Finding Worth</span>
+              <span>Today</span>
+            </div>
+            <div class="mood-card">
+              <h3>How are you feeling?</h3>
+              <p style="margin:0; color: var(--muted);">Name the feeling. Slow down. Begin where you are.</p>
+              <div class="chip-row">
+                <span class="chip">Anxiety</span>
+                <span class="chip">Shame</span>
+                <span class="chip">Overwhelm</span>
+              </div>
+            </div>
+            <div class="thought-card">
+              <h3>Is this thought useful?</h3>
+              <p style="margin:0; color: var(--muted);">If yes, turn it into a next step. If no, notice it and return to what matters.</p>
+            </div>
+            <div class="thought-card" style="margin-bottom:0;">
+              <h3>Next step</h3>
+              <p style="margin:0; color: var(--muted);">Take one small action aligned with who you want to be.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <h2 class="section-title">A simple space for steadier thinking</h2>
+        <p class="section-copy">
+          The app is built around guided emotional check-ins, thought reflection, and practical tools inspired by cognitive behavioral therapy and acceptance and commitment therapy.
+        </p>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <h2 class="section-title">What it helps you do</h2>
+        <p class="section-copy">
+          Finding Worth is designed to help you pause, untangle what is happening inside, and choose your next step with more intention.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Name what you feel</h3>
+            <p>Use guided check-ins to identify emotions like anxiety, shame, overwhelm, loneliness, anger, and sadness.</p>
+          </div>
+          <div class="card">
+            <h3>Examine the thought</h3>
+            <p>Work through thoughts with structured prompts, cognitive distortion tools, and ACT-style reflection on usefulness.</p>
+          </div>
+          <div class="card">
+            <h3>Choose what matters</h3>
+            <p>Turn insight into one small next action that supports your values instead of staying stuck in rumination.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="support">
+      <div class="wrap">
+        <div class="cta-box">
+          <div>
+            <h2 class="section-title" style="margin-bottom:8px;">Need help or have feedback?</h2>
+            <p class="section-copy" style="margin:0; max-width:52ch;">
+              For support, questions, or feedback about Finding Worth, send a message and I’ll get back to you.
+            </p>
+          </div>
+          <a class="button primary" href="mailto:your@email.com?subject=Finding%20Worth%20Support">Email Support</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-line">
+      <span>© 2026 Kim Trinh. All rights reserved.</span>
+      <span>Finding Worth is for general wellness and self-reflection.</span>
+    </div>
+  </footer>
+</body>
+</html>
