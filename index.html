@@ -7,217 +7,347 @@
   <meta name="description" content="Finding Worth is a guided CBT and ACT reflection app for working through difficult thoughts and emotions with clarity, self-compassion, and action." />
   <style>
     :root {
-      --bg: #f6f3ee;
-      --card: rgba(255,255,255,0.78);
-      --text: #1f2937;
-      --muted: #5b6472;
-      --accent: #7c8f7a;
-      --accent-dark: #5f735d;
-      --border: rgba(31, 41, 55, 0.08);
-      --shadow: 0 20px 50px rgba(31, 41, 55, 0.08);
-      --radius: 24px;
-      --maxw: 960px;
+      --bg: #f3f2f7;
+      --surface: #f7f4ee;
+      --surface-2: #ffffff;
+      --text: #1f2023;
+      --muted: #8d867a;
+      --line: #ded8cf;
+      --accent: #5f6fa8;
+      --accent-soft: #e7ebf7;
+      --accent-ring: #cfd5ea;
+      --shadow: 0 18px 40px rgba(73, 67, 56, 0.10);
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --maxw: 1120px;
     }
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f4f3f7 0%, #f2f1f6 100%);
       color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(124,143,122,0.18), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(191,167,127,0.14), transparent 28%),
-        var(--bg);
-      line-height: 1.6;
+      line-height: 1.5;
     }
+
+    h1, h2, h3 {
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    h1, h2, .serif {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    p { margin: 0; }
 
     a { color: inherit; }
 
     .wrap {
-      width: min(calc(100% - 32px), var(--maxw));
+      width: min(calc(100% - 28px), var(--maxw));
       margin: 0 auto;
     }
 
-    header {
-      padding: 28px 0 10px;
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(243, 242, 247, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(31, 32, 35, 0.06);
     }
 
     .nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
+      min-height: 72px;
     }
 
     .brand {
-      font-weight: 700;
-      letter-spacing: -0.02em;
       text-decoration: none;
-      font-size: 1.1rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
     }
 
     .nav-links {
       display: flex;
-      gap: 12px;
-      align-items: center;
+      gap: 18px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: var(--muted);
+      color: #5d6270;
       font-size: 0.95rem;
     }
 
-    .button {
-      display: inline-block;
-      text-decoration: none;
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: 600;
-      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-    }
-
-    .button.primary {
-      background: var(--accent);
-      color: white;
-      box-shadow: var(--shadow);
-    }
-
-    .button.primary:hover {
-      background: var(--accent-dark);
-    }
-
-    .button.secondary {
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.65);
-      color: var(--text);
-    }
-
     .hero {
-      padding: 52px 0 28px;
+      padding: 48px 0 28px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
       align-items: center;
     }
 
     .eyebrow {
-      display: inline-block;
-      padding: 8px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ece8df;
+      color: #5c6758;
       border-radius: 999px;
-      background: rgba(124,143,122,0.12);
-      color: var(--accent-dark);
+      padding: 10px 14px;
+      font-size: 0.92rem;
       font-weight: 600;
-      font-size: 0.9rem;
       margin-bottom: 18px;
     }
 
     h1 {
-      font-size: clamp(2.3rem, 5vw, 4.2rem);
-      line-height: 1.04;
-      letter-spacing: -0.04em;
-      margin: 0 0 18px;
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 0.95;
+      margin-bottom: 18px;
+      color: #1f2430;
     }
 
     .lead {
-      font-size: 1.08rem;
-      color: var(--muted);
-      max-width: 60ch;
-      margin: 0 0 28px;
+      max-width: 56ch;
+      color: #5b6470;
+      font-size: 1.04rem;
+      margin-bottom: 22px;
     }
 
     .hero-actions {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 22px;
+      margin-bottom: 16px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      text-decoration: none;
+      padding: 13px 18px;
+      font-weight: 700;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      border: 1px solid transparent;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+
+    .button.primary {
+      background: #87977d;
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .button.secondary {
+      background: white;
+      color: #333844;
+      border-color: rgba(31,32,35,0.08);
     }
 
     .mini-note {
-      color: var(--muted);
-      font-size: 0.95rem;
+      color: #6d6f74;
+      font-size: 0.94rem;
+      max-width: 54ch;
     }
 
-    .phone-card {
-      background: var(--card);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      box-shadow: var(--shadow);
-      padding: 20px;
-      max-width: 360px;
+    .phone-shell {
+      max-width: 420px;
       margin-left: auto;
-    }
-
-    .phone {
-      background: linear-gradient(180deg, #fcfbf8, #f4efe7);
-      border-radius: 28px;
-      padding: 18px;
-      border: 1px solid rgba(31,41,55,0.08);
-    }
-
-    .screen-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .mood-card, .thought-card {
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(31,41,55,0.06);
-      border-radius: 20px;
+      background: linear-gradient(180deg, #f9f8fa 0%, #f2efeb 100%);
+      border: 1px solid rgba(31,32,35,0.06);
+      box-shadow: 0 24px 56px rgba(54, 51, 44, 0.12);
+      border-radius: 36px;
       padding: 16px;
-      margin-bottom: 14px;
     }
 
-    .mood-card h3, .thought-card h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
+    .phone-screen {
+      background: var(--bg);
+      border-radius: 30px;
+      min-height: 690px;
+      padding: 18px 16px 22px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .chip-row {
+    .status {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 700;
+      padding: 4px 10px 0;
+      font-size: 0.95rem;
+      margin-bottom: 22px;
+    }
+
+    .pill {
+      width: 124px;
+      height: 34px;
+      background: #111;
+      border-radius: 999px;
+      margin: 0 auto;
+    }
+
+    .screen-title {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin: 18px 0 22px;
+    }
+
+    .app-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .head-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .badge-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #eaedf6;
+      border: 2px solid #b8bfd2;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .badge-center {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .card-title {
+      font-size: 2rem;
+      line-height: 1;
+      color: #322d28;
+      margin-bottom: 6px;
+    }
+
+    .subtle {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .quick-copy {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin: 10px 0 18px;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
       margin-top: 10px;
     }
 
-    .chip {
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(124,143,122,0.12);
-      color: var(--accent-dark);
-      font-size: 0.88rem;
-      font-weight: 600;
+    .action-chip {
+      background: transparent;
+      border: 2px solid #d4d0ca;
+      border-radius: 22px;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #2e2a26;
+      text-align: center;
+      padding: 12px;
     }
 
-    section {
-      padding: 26px 0;
+    .weather-icon {
+      font-size: 1.6rem;
     }
+
+    .tabbar {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      background: rgba(247, 244, 238, 0.96);
+      border: 1px solid rgba(31, 32, 35, 0.06);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 10px 8px;
+      gap: 6px;
+    }
+
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #1f2023;
+      text-decoration: none;
+      font-size: 0.82rem;
+      padding: 10px 6px;
+      border-radius: 999px;
+    }
+
+    .tab.active {
+      background: #ece9ef;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.05rem;
+    }
+
+    section { padding: 26px 0; }
 
     .section-title {
-      font-size: clamp(1.6rem, 3vw, 2.3rem);
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin: 0 0 10px;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      margin-bottom: 10px;
+      color: #20242f;
     }
 
     .section-copy {
-      color: var(--muted);
+      color: #5b6470;
       max-width: 70ch;
-      margin: 0 0 22px;
+      margin-bottom: 22px;
     }
 
     .grid-3 {
@@ -226,81 +356,152 @@
       gap: 18px;
     }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+    .feature-card, .privacy-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
       box-shadow: var(--shadow);
-      padding: 22px;
+      padding: 24px;
     }
 
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 1.05rem;
+    .feature-card h3, .privacy-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #23252a;
     }
 
-    .card p {
-      margin: 0;
-      color: var(--muted);
+    .feature-card p, .privacy-card p, .privacy-card li {
+      color: #5f645e;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .shot {
+      background: linear-gradient(180deg, #eef0f7, #f8f6f1);
+      border: 1px solid rgba(31,32,35,0.07);
+      border-radius: 26px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .shot-top {
+      height: 18px;
+      width: 72px;
+      background: #111;
+      border-radius: 999px;
+      margin: 0 auto 18px;
+    }
+
+    .shot-body {
+      flex: 1;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(31,32,35,0.07);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .shot-tag {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .shot-caption {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .small-card {
+      background: var(--surface-2);
+      border: 1px solid rgba(31,32,35,0.06);
+      border-radius: 16px;
+      padding: 12px;
+      color: #6b7280;
+      font-size: 0.92rem;
     }
 
     .cta {
-      margin: 18px 0 54px;
+      margin: 10px 0 42px;
     }
 
     .cta-box {
-      background: linear-gradient(135deg, rgba(124,143,122,0.15), rgba(255,255,255,0.9));
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      padding: 28px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 18px;
       flex-wrap: wrap;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .privacy-card ul {
+      margin: 10px 0 0 18px;
+      padding: 0;
     }
 
     footer {
       padding: 0 0 34px;
-      color: var(--muted);
+      color: #6d7480;
       font-size: 0.95rem;
     }
 
     .footer-line {
-      border-top: 1px solid rgba(31,41,55,0.08);
-      padding-top: 18px;
+      border-top: 1px solid rgba(31,32,35,0.08);
       display: flex;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
+      padding-top: 18px;
     }
 
-    @media (max-width: 860px) {
+    @media (max-width: 980px) {
       .hero-grid,
-      .grid-3 {
+      .grid-3,
+      .gallery {
         grid-template-columns: 1fr;
       }
 
-      .phone-card {
-        margin: 0;
-        max-width: 100%;
+      .phone-shell {
+        margin: 0 auto;
       }
+    }
 
-      .cta-box {
-        align-items: flex-start;
-      }
+    @media (max-width: 640px) {
+      .nav { min-height: 64px; }
+      .nav-links { gap: 12px; }
+      .hero { padding-top: 28px; }
+      .phone-screen { min-height: 620px; }
+      .card-title { font-size: 1.65rem; }
+      .quick-copy { font-size: 1.05rem; }
+      .action-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header>
+  <header class="topbar">
     <div class="wrap nav">
       <a class="brand" href="#top">Finding Worth</a>
       <nav class="nav-links">
         <a href="#about">About</a>
         <a href="#features">Features</a>
+        <a href="#screens">Screens</a>
         <a href="#support">Support</a>
+        <a href="#privacy">Privacy</a>
       </nav>
     </div>
   </header>
@@ -311,40 +512,42 @@
         <div>
           <div class="eyebrow">CBT + ACT guided reflection</div>
           <h1>Find clarity in difficult thoughts.</h1>
-          <p class="lead">
-            Finding Worth is a calm, private app for working through emotions, cognitive distortions, and hard moments with more awareness, self-compassion, and action.
-          </p>
+          <p class="lead">Finding Worth is a calm, private app for working through emotions, cognitive distortions, and hard moments with more awareness, self-compassion, and action.</p>
           <div class="hero-actions">
-            <a class="button primary" href="mailto:your@email.com">Contact Support</a>
+            <a class="button primary" href="mailto:your@email.com?subject=Finding%20Worth%20Support">Contact Support</a>
             <a class="button secondary" href="#features">See Features</a>
           </div>
-          <p class="mini-note">
-            Designed as a self-reflection and wellness tool. It is not a substitute for therapy, diagnosis, crisis care, or medical treatment.
-          </p>
+          <p class="mini-note">Designed as a self-reflection and wellness tool. It is not a substitute for therapy, diagnosis, crisis care, or medical treatment.</p>
         </div>
 
-        <div class="phone-card" aria-hidden="true">
-          <div class="phone">
-            <div class="screen-top">
-              <span>Finding Worth</span>
-              <span>Today</span>
+        <div class="phone-shell" aria-hidden="true">
+          <div class="phone-screen">
+            <div class="status">
+              <span>11:39</span>
+              <div class="pill"></div>
+              <span>▂▂▂</span>
             </div>
-            <div class="mood-card">
-              <h3>How are you feeling?</h3>
-              <p style="margin:0; color: var(--muted);">Name the feeling. Slow down. Begin where you are.</p>
-              <div class="chip-row">
-                <span class="chip">Anxiety</span>
-                <span class="chip">Shame</span>
-                <span class="chip">Overwhelm</span>
+            <div class="screen-title">Finding Worth</div>
+            <div class="app-card">
+              <div class="head-row">
+                <div class="badge-circle"><div class="badge-center">✿</div></div>
+                <div>
+                  <h2 class="card-title">How are you feeling today?</h2>
+                  <p class="subtle">Sunday, March 8, 2026</p>
+                </div>
+              </div>
+              <p class="quick-copy">Start with one quick check-in.</p>
+              <div class="action-row">
+                <div class="action-chip"><span class="weather-icon">☀️</span><span>Great</span></div>
+                <div class="action-chip"><span class="weather-icon">🌧️</span><span>Not so great</span></div>
               </div>
             </div>
-            <div class="thought-card">
-              <h3>Is this thought useful?</h3>
-              <p style="margin:0; color: var(--muted);">If yes, turn it into a next step. If no, notice it and return to what matters.</p>
-            </div>
-            <div class="thought-card" style="margin-bottom:0;">
-              <h3>Next step</h3>
-              <p style="margin:0; color: var(--muted);">Take one small action aligned with who you want to be.</p>
+            <div class="tabbar">
+              <span class="tab active"><span class="icon">☀️</span><span>Daily</span></span>
+              <span class="tab"><span class="icon">↗</span><span>Insights</span></span>
+              <span class="tab"><span class="icon">▦</span><span>Calendar</span></span>
+              <span class="tab"><span class="icon">▩</span><span>Distortions</span></span>
+              <span class="tab"><span class="icon">•••</span><span>More</span></span>
             </div>
           </div>
         </div>
@@ -354,30 +557,59 @@
     <section id="about">
       <div class="wrap">
         <h2 class="section-title">A simple space for steadier thinking</h2>
-        <p class="section-copy">
-          The app is built around guided emotional check-ins, thought reflection, and practical tools inspired by cognitive behavioral therapy and acceptance and commitment therapy.
-        </p>
+        <p class="section-copy">The app is built around guided emotional check-ins, thought reflection, and practical tools inspired by cognitive behavioral therapy and acceptance and commitment therapy.</p>
       </div>
     </section>
 
     <section id="features">
       <div class="wrap">
         <h2 class="section-title">What it helps you do</h2>
-        <p class="section-copy">
-          Finding Worth is designed to help you pause, untangle what is happening inside, and choose your next step with more intention.
-        </p>
+        <p class="section-copy">Finding Worth is designed to help you pause, untangle what is happening inside, and choose your next step with more intention.</p>
         <div class="grid-3">
-          <div class="card">
+          <div class="feature-card">
             <h3>Name what you feel</h3>
-            <p>Use guided check-ins to identify emotions like anxiety, shame, overwhelm, loneliness, anger, and sadness.</p>
+            <p>Use guided check-ins to identify emotions like anxiety, sadness, anger, overwhelm, loneliness, shame, and guilt.</p>
           </div>
-          <div class="card">
+          <div class="feature-card">
             <h3>Examine the thought</h3>
-            <p>Work through thoughts with structured prompts, cognitive distortion tools, and ACT-style reflection on usefulness.</p>
+            <p>Work through thoughts with cognitive distortion tools, usefulness checks, and reflection prompts that slow your mind down.</p>
           </div>
-          <div class="card">
+          <div class="feature-card">
             <h3>Choose what matters</h3>
-            <p>Turn insight into one small next action that supports your values instead of staying stuck in rumination.</p>
+            <p>Use values and micro-actions to move forward with one small step when a thought is no longer helping you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screens">
+      <div class="wrap">
+        <h2 class="section-title">A design that matches the app</h2>
+        <p class="section-copy">Soft surfaces, rounded cards, muted colors, serif headlines, and calm structure echo the feel of the app itself.</p>
+        <div class="gallery">
+          <div class="shot">
+            <div class="shot-top"></div>
+            <div class="shot-body">
+              <div class="shot-tag">Daily</div>
+              <div class="shot-caption">Quick emotional check-in</div>
+              <div class="small-card">Start with one quick check-in and choose how you’re feeling today.</div>
+            </div>
+          </div>
+          <div class="shot">
+            <div class="shot-top"></div>
+            <div class="shot-body">
+              <div class="shot-tag">Mood</div>
+              <div class="shot-caption">Emotion cards with visual cues</div>
+              <div class="small-card">Anxiety, sadness, anger, overwhelm, loneliness, and more in a calm card grid.</div>
+            </div>
+          </div>
+          <div class="shot">
+            <div class="shot-top"></div>
+            <div class="shot-body">
+              <div class="shot-tag">ACT</div>
+              <div class="shot-caption">Values and micro-actions</div>
+              <div class="small-card">When a thought is not useful, choose one direction and take one tiny action.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -388,11 +620,49 @@
         <div class="cta-box">
           <div>
             <h2 class="section-title" style="margin-bottom:8px;">Need help or have feedback?</h2>
-            <p class="section-copy" style="margin:0; max-width:52ch;">
-              For support, questions, or feedback about Finding Worth, send a message and I’ll get back to you.
-            </p>
+            <p class="section-copy" style="margin:0; max-width:54ch;">For support, privacy questions, or feedback about Finding Worth, send a message and I’ll get back to you.</p>
           </div>
           <a class="button primary" href="mailto:your@email.com?subject=Finding%20Worth%20Support">Email Support</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="wrap">
+        <h2 class="section-title">Privacy Policy</h2>
+        <div class="privacy-card">
+          <p><strong>Effective date:</strong> March 8, 2026</p>
+          <p style="margin-top: 12px;">Finding Worth is a self-reflection and wellness app. This Privacy Policy explains what information the app accesses, how that information is used, and your choices.</p>
+
+          <h3 style="margin-top: 22px;">Information the app accesses</h3>
+          <p>With your permission, Finding Worth may access Apple Health data such as sleep and related wellness metrics through HealthKit. The app may also store journal entries, mood check-ins, reflection responses, and settings that you enter directly.</p>
+
+          <h3 style="margin-top: 22px;">How information is used</h3>
+          <p>Information accessed by the app is used to provide wellness reflection features, help you review patterns, and support your use of the app’s CBT- and ACT-inspired tools.</p>
+
+          <h3 style="margin-top: 22px;">Data collection</h3>
+          <p>Finding Worth does not collect personal data from the app to a remote server. Health data, journal content, mood entries, and reflection responses remain on your device unless you explicitly choose to share them yourself.</p>
+
+          <h3 style="margin-top: 22px;">Health data</h3>
+          <p>HealthKit data is used only for health and wellness features within the app and is not used for advertising, marketing, or data sale.</p>
+
+          <h3 style="margin-top: 22px;">Third-party services</h3>
+          <p>Finding Worth does not use third-party analytics, advertising SDKs, or remote tracking services to collect your personal information from the app.</p>
+
+          <h3 style="margin-top: 22px;">Your choices</h3>
+          <ul>
+            <li>You can control HealthKit access at any time in the Health app and in iPhone Settings.</li>
+            <li>You can delete app content from within the app or by removing the app from your device.</li>
+          </ul>
+
+          <h3 style="margin-top: 22px;">Children</h3>
+          <p>Finding Worth is intended for general wellness and self-reflection. It is not intended to diagnose or treat medical or psychiatric conditions.</p>
+
+          <h3 style="margin-top: 22px;">Changes to this policy</h3>
+          <p>This Privacy Policy may be updated from time to time. Updated versions will be posted on this page with a revised effective date.</p>
+
+          <h3 style="margin-top: 22px;">Contact</h3>
+          <p>For privacy questions or support, contact: <a href="mailto:your@email.com">your@email.com</a></p>
         </div>
       </div>
     </section>
@@ -400,8 +670,8 @@
 
   <footer>
     <div class="wrap footer-line">
-      <span>© 2026 Kim Trinh. All rights reserved.</span>
-      <span>Finding Worth is for general wellness and self-reflection.</span>
+      <span>© 2026 Kim Trinh, MD. All rights reserved.</span>
+      <span><a href="#privacy">Privacy Policy</a> · Finding Worth is for general wellness and self-reflection.</span>
     </div>
   </footer>
 </body>
